@@ -1,0 +1,23 @@
+#!/bin/bash
+echo "CPU and GPU information by node:"
+echo ""
+echo " NODE  - USED/FREE/Other/TOTAL -    GPUS:NUM"
+echo "              of CORES "
+sinfo -No"%n -      %.9C        -   %G" | sed '1d'
+echo ""
+
+PARTITIONLIST=($(sinfo -ho %P))
+for PARTITION in ${PARTITIONLIST[@]}
+do
+        NODELIST=($(sinfo -N | grep $PARTITION | awk '{print $1}'))
+        for NODE in ${NODELIST[@]}
+        do
+                USAGE=0
+                INUSE=($(sacct -a -n -o node,allocgres -s R | grep $NODE | cut -d ':' -f 2))
+                for usage in ${INUSE[@]}
+                do
+                        USAGE=$((USAGE+$usage))
+                done
+                echo $NODE  - $USAGE GPU in use
+        done
+done

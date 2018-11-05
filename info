@@ -1,8 +1,0 @@
-#!/bin/bash
-echo "CPU and GPU information by node:"
-echo ""
-echo " NODE  - USED/FREE/Other/TOTAL -    GPUS:NUM"
-echo "              of CORES "
-sinfo -No"%n -      %.9C        -   %G" | sed '1d'
-echo ""
-
