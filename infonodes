@@ -21,3 +21,8 @@ do
                 echo $NODE  - $USAGE GPU in use
         done
 done
+
+#Start date. Approximate date when GPU accounting was activated 
+echo ""
+echo -n "GPUs' time in hours for your user: "
+sreport cluster AccountUtilizationByUser -t  hours -T gres/gpu Start=2018-10-10 | grep $USER | awk '{print $NF}'
