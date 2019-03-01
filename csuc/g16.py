@@ -24,7 +24,7 @@ def createInput(inputFile, nproc):
     print >> output, "#SBATCH -N 1"
     print >> output, "module load apps/gaussian/g16b1"
     print >> output, "cd $SCRATCH"
-    print >> output, "g09 < $SLURM_SUBMIT_DIR/"+ inputFile +" > $SLURM_SUBMIT_DIR/"+ name +".qfi\n"
+    print >> output, "g16 < $SLURM_SUBMIT_DIR/"+ inputFile +" > $SLURM_SUBMIT_DIR/"+ name +".qfi\n"
 
     output.close()
     return name
